@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;700&family=Instrument+Serif:ital@0;1&display=swap');
+@import "tailwindcss" source(none);
+@source "./";
+
+:root { font-family: 'DM Sans', sans-serif; color: #201e1c; background: #f2efe8; font-synthesis: none; }
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; background: #f2efe8; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; }
+::selection { background: #d85436; color: #fff8ed; }
+.site-nav { border-bottom: 1px solid #d1c9bb; background: rgba(242,239,232,.86); backdrop-filter: blur(14px); }
+.container { width: min(1120px, calc(100% - 48px)); margin: 0 auto; }
+.mono { font-family: 'DM Mono', monospace; font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; }
+.display { font-family: 'Instrument Serif', serif; font-weight: 400; }
+.grid-paper { background-image: linear-gradient(#201e1c0a 1px, transparent 1px), linear-gradient(90deg, #201e1c0a 1px, transparent 1px); background-size: 32px 32px; }
+.card { border: 1px solid #d1c9bb; background: #f8f6f0; }
+.card:hover { border-color: #d85436; }
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+.rise { animation: rise .7s ease both; }
+@media (max-width: 720px) { .container { width: min(100% - 32px, 560px); } }
