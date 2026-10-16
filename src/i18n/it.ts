@@ -1,0 +1,30 @@
+import type { Translation } from "./en";
+
+export const it: Translation = {
+  languageName: "Italiano",
+  nav: { start: "Inizio", life: "Percorso", projects: "Progetti CS", data: "Data engineering", rides: "Bici", contact: "Contatti" },
+  home: {
+    kicker: "EMILIA BRAVO · SOFTWARE E DATI",
+    titleLineOne: "Codice,",
+    titleLineTwo: "dati",
+    titleLineThree: "e lavoro utile.",
+    description: "Sono Emilia Bravo, studentessa di Informatica e senior alla Georgia State University. Sviluppo piattaforme full-stack, pipeline di dati distribuite e analisi per la salute pubblica.",
+    explore: "Scopri il mio lavoro",
+    connect: "Contattami",
+    chooseFocus: "Scegli un'area",
+    buildHeading: "Cosa costruisco",
+    softwareEyebrow: "AREA · FULL-STACK",
+    dataEyebrow: "AREA · DATA ENGINEERING",
+    softwareTitle: "Piattaforme di produzione che le persone usano davvero.",
+    dataTitle: "Pipeline validate nello spazio per la salute pubblica.",
+    softwareItems: ["Fry Goehring Event Logistics", "Piattaforma HR Teresita", "Messaggistica solo vocale", "Strumento di golf VR"],
+    dataItems: ["Counties That Beat the Odds", "Cluster Apache Spark", "Analisi documentale Floreo", "Telemetria delle uscite Strava"],
+    stats: { events: "eventi gestiti", registrations: "registrazioni", manualOps: "meno lavoro manuale", hackHers: "HackHers 2025", cdcRows: "righe CDC PLACES", counties: "contee statunitensi", spark: "cluster Spark", diligence: "analisi più rapida" },
+    careLabel: "Ciò che mi interessa",
+    careTitle: "Strumenti chiari per problemi reali.",
+    careBody: "Lavoro su salute, dati pubblici, infrastrutture civiche, tecnologia climatica e progetti per team latinoamericani mentre completo gli studi.",
+    seeAll: "Vedi tutti i progetti",
+    openLabel: "Disponibile per nuove opportunità.",
+    openBody: "Ruoli graduate in software engineering, full-stack e data engineering.",
+  },
+};

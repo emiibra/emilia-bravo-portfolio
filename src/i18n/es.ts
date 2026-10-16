@@ -1,0 +1,30 @@
+import type { Translation } from "./en";
+
+export const es: Translation = {
+  languageName: "Español",
+  nav: { start: "Inicio", life: "Vida", projects: "Proyectos de CS", data: "Ingeniería de datos", rides: "Bicicleta", contact: "Contacto" },
+  home: {
+    kicker: "EMILIA BRAVO · SOFTWARE Y DATOS",
+    titleLineOne: "Código,",
+    titleLineTwo: "datos",
+    titleLineThree: "y trabajo útil.",
+    description: "Soy Emilia Bravo, estudiante de Ciencias de la Computación y senior en Georgia State University. Desarrollo plataformas full-stack, pipelines de datos distribuidos y análisis de salud pública.",
+    explore: "Ver mi trabajo",
+    connect: "Hablemos",
+    chooseFocus: "Elige un enfoque",
+    buildHeading: "Lo que construyo",
+    softwareEyebrow: "ENFOQUE · FULL-STACK",
+    dataEyebrow: "ENFOQUE · INGENIERÍA DE DATOS",
+    softwareTitle: "Plataformas de producción que las personas realmente usan.",
+    dataTitle: "Pipelines validados espacialmente para salud pública.",
+    softwareItems: ["Fry Goehring Event Logistics", "Plataforma de RR. HH. Teresita", "Mensajería por voz", "Herramienta de golf en VR"],
+    dataItems: ["Counties That Beat the Odds", "Clúster Apache Spark", "Analítica de documentos de Floreo", "Telemetría de rides de Strava"],
+    stats: { events: "eventos gestionados", registrations: "registros", manualOps: "menos operación manual", hackHers: "HackHers 2025", cdcRows: "filas de CDC PLACES", counties: "condados de EE. UU.", spark: "clúster Spark", diligence: "análisis más rápido" },
+    careLabel: "Lo que me importa",
+    careTitle: "Herramientas claras para problemas reales.",
+    careBody: "Trabajo en salud, datos públicos, infraestructura cívica, tecnología climática y proyectos para equipos latinoamericanos mientras termino mi carrera.",
+    seeAll: "Ver todo el trabajo",
+    openLabel: "Disponible para nuevos proyectos.",
+    openBody: "Roles de ingeniería de software, full-stack e ingeniería de datos para recién graduados.",
+  },
+};

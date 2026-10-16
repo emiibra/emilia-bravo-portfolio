@@ -1,6 +1,7 @@
 import { Link, useLocation } from "@tanstack/react-router";
 import { ArrowUpRight, Bike, Github, LoaderCircle, Menu, X } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
+import { type Language, useTranslation } from "@/i18n";
 
 const links = [
   ["/", "Start"], ["/about", "Life"], ["/cs", "CS Projects"],
@@ -10,6 +11,7 @@ const links = [
 export function Nav() {
   const [open, setOpen] = useState(false);
   const location = useLocation();
+  const { language, setLanguage, t } = useTranslation();
   return <header className="site-nav sticky top-0 z-50">
     <nav className="container flex min-h-20 items-center justify-between gap-6">
       <Link to="/" className="flex items-center gap-3 text-xl font-bold" onClick={() => setOpen(false)}>
@@ -18,7 +20,10 @@ export function Nav() {
       </Link>
       <button className="rounded-full border border-[#d1c9bb] p-2 md:hidden" aria-label="Toggle navigation" onClick={() => setOpen(!open)}>{open ? <X size={18} /> : <Menu size={18} />}</button>
       <div className={`${open ? "flex" : "hidden"} absolute left-4 right-4 top-[72px] flex-col gap-3 border border-[#d1c9bb] bg-[#f8f6f0] p-5 shadow-lg md:static md:flex md:flex-row md:items-center md:border-0 md:bg-transparent md:p-0 md:shadow-none`}>
-        {links.map(([to, label]) => <Link key={to} to={to} activeOptions={{ exact: to === "/" }} onClick={() => setOpen(false)} className={`mono transition-colors hover:text-[#d85436] ${location.pathname === to ? "text-[#d85436]" : "text-[#716c65]"}`}>{label}</Link>)}
+        {links.map(([to, label]) => { const labels = { "/": t.nav.start, "/about": t.nav.life, "/cs": t.nav.projects, "/data": t.nav.data, "/rides": t.nav.rides, "/contact": t.nav.contact }; return <Link key={to} to={to} activeOptions={{ exact: to === "/" }} onClick={() => setOpen(false)} className={`mono transition-colors hover:text-[#d85436] ${location.pathname === to ? "text-[#d85436]" : "text-[#716c65]"}`}>{labels[to]}</Link>; })}
+        <select aria-label="Language" value={language} onChange={(event) => setLanguage(event.target.value as Language)} className="mono cursor-pointer rounded-full border border-[#d1c9bb] bg-transparent px-3 py-2 text-[.6rem] text-[#716c65] outline-none focus:border-[#d85436]">
+          <option value="en">EN</option><option value="es">ES</option><option value="it">IT</option>
+        </select>
       </div>
     </nav>
     <div className="h-px bg-[#201e1c] opacity-20" />
@@ -117,7 +122,7 @@ export function GithubRepoGrid() {
   }, []);
 
   return <section className="mt-20 border-t border-[#d1c9bb] pt-10" aria-labelledby="github-heading">
-    <div className="flex flex-wrap items-end justify-between gap-4"><div><p className="mono text-[#d85436]">Live from GitHub</p><h2 id="github-heading" className="display mt-2 text-4xl">The public build log.</h2></div><a href="https://github.com/emiibra" target="_blank" rel="noreferrer" className="mono inline-flex items-center gap-2 text-[#d85436] hover:underline">View profile <Github size={15} /></a></div>
+    <div className="flex flex-wrap items-end justify-between gap-4"><div><p className="mono text-[#d85436]">Live from GitHub</p><h2 id="github-heading" className="display mt-2 text-4xl">Recent public repositories.</h2></div><a href="https://github.com/emiibra" target="_blank" rel="noreferrer" className="mono inline-flex items-center gap-2 text-[#d85436] hover:underline">View profile <Github size={15} /></a></div>
     {loading && <div className="mt-8 flex items-center gap-3 text-sm text-[#716c65]"><LoaderCircle className="animate-spin" size={18} /> Loading public repositories...</div>}
     {!loading && error && <p className="mt-8 rounded-xl border border-[#d1c9bb] p-5 text-sm text-[#716c65]">GitHub is temporarily unavailable. The featured project list above is still available.</p>}
     {!loading && !error && <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">{repositories.map((repository) => <article key={repository.id} className="card flex min-h-52 flex-col rounded-2xl p-5"><div className="flex items-start justify-between gap-4"><Github className="text-[#347b64]" size={20} /><span className="mono text-[.6rem] text-[#716c65]">{new Date(repository.updated_at).toLocaleDateString("en-US", { month: "short", year: "numeric" })}</span></div><h3 className="display mt-5 text-2xl">{githubProjectTitles[repository.name] || repository.name}</h3><p className="mt-2 line-clamp-3 text-sm leading-relaxed text-[#716c65]">{repository.description || "Public repository by Emilia Bravo."}</p><div className="mt-auto flex items-center justify-between gap-3 pt-5"><span className="mono text-[.6rem] text-[#347b64]">{repository.language || "Open source"}</span><div className="flex items-center gap-3"><a href={repository.html_url} target="_blank" rel="noreferrer" className="mono inline-flex items-center gap-1 text-[#d85436] hover:underline">Repo <ArrowUpRight size={13} /></a>{repository.homepage && <a href={repository.homepage} target="_blank" rel="noreferrer" className="mono inline-flex items-center gap-1 text-[#d85436] hover:underline">Demo <ArrowUpRight size={13} /></a>}</div></div></article>)}</div>}

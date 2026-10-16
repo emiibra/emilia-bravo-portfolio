@@ -12,7 +12,9 @@ button { font: inherit; }
 .container { width: min(1120px, calc(100% - 48px)); margin: 0 auto; }
 .mono { font-family: 'DM Mono', monospace; font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; }
 .display { font-family: 'Instrument Serif', serif; font-weight: 400; }
-.grid-paper { background-image: linear-gradient(#201e1c0a 1px, transparent 1px), linear-gradient(90deg, #201e1c0a 1px, transparent 1px); background-size: 32px 32px; }
+.grid-paper { background-color: #f2efe8; background-image: linear-gradient(116deg, #f8f4ec 0%, #eee5d9 52%, #f7f1e8 100%); }
+.grid-paper::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .55; background: linear-gradient(116deg, transparent 0 48%, #d8543614 48.1% 48.25%, transparent 48.35% 100%), linear-gradient(116deg, transparent 0 67%, #347b6410 67.1% 67.2%, transparent 67.3% 100%); }
+.grid-paper::after { content: ""; position: absolute; top: 14%; right: 8%; width: 28%; height: 1px; background: linear-gradient(90deg, transparent, #d8543666, transparent); transform: rotate(-18deg); transform-origin: right; }
 .card { border: 1px solid #d1c9bb; background: #f8f6f0; }
 .card:hover { border-color: #d85436; }
 @keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
