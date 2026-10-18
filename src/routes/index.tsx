@@ -1,33 +1,77 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
-import { ArrowRight, Database, Github, Linkedin, Mail, Sparkles } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Database, Disc3, Github, Linkedin, Mail, MousePointer2, Sparkles } from "lucide-react";
 import { useState } from "react";
 import { meta } from "@/components/site";
 import { useTranslation } from "@/i18n";
 
-export const Route = createFileRoute("/")({ head: () => meta("Emilia Bravo | Full-Stack & Data Engineer", "Portfolio of Emilia Bravo, a computer science senior building human-centered software and data systems."), component: Home });
-const focus = {
-  software: { label: "Software", eyebrow: "FOCUS · FULL-STACK", title: "Shipping production platforms people actually use.", stats: [["70+", "events powered"], ["~2,100", "registrations"], ["~80%", "less manual ops"], ["1st", "HackHers 2025"]], items: ["Fry Goehring Event Logistics", "Teresita HR Platform", "Voice-Only AI Messaging", "VR Golf Training Tool"], href: "/cs" },
-  data: { label: "Data", eyebrow: "FOCUS · DATA ENGINEERING", title: "Spatially validated pipelines for public health.", stats: [["229k", "CDC PLACES rows"], ["3,143", "U.S. counties"], ["2-node", "Spark cluster"], ["20%", "faster due diligence"]], items: ["Counties That Beat the Odds", "Multi-Node Apache Spark", "Floreo Document Analytics", "Strava Ride Telemetry"], href: "/data" },
-} as const;
+export const Route = createFileRoute("/")({
+  head: () => meta("Emilia Bravo | Full-Stack & Data Engineer", "A curious mind, a few open tabs, and a portfolio of software and data work."),
+  component: Home,
+});
+
 function Home() {
   const { t } = useTranslation();
-  const translatedFocus = {
-    software: { ...focus.software, eyebrow: t.home.softwareEyebrow, title: t.home.softwareTitle, stats: [["70+", t.home.stats.events], ["~2,100", t.home.stats.registrations], ["~80%", t.home.stats.manualOps], ["1st", t.home.stats.hackHers]], items: t.home.softwareItems },
-    data: { ...focus.data, eyebrow: t.home.dataEyebrow, title: t.home.dataTitle, stats: [["229k", t.home.stats.cdcRows], ["3,143", t.home.stats.counties], ["2-node", t.home.stats.spark], ["20%", t.home.stats.diligence]], items: t.home.dataItems },
+  const [mode, setMode] = useState<"software" | "data">("software");
+  const [isPlaying, setIsPlaying] = useState(false);
+  const focus = {
+    software: {
+      label: "01 / Software",
+      eyebrow: t.home.softwareEyebrow,
+      title: t.home.softwareTitle,
+      stats: [["70+", t.home.stats.events], ["~2,100", t.home.stats.registrations], ["~80%", t.home.stats.manualOps], ["1st", t.home.stats.hackHers]],
+      items: t.home.softwareItems,
+      href: "/cs" as const,
+    },
+    data: {
+      label: "02 / Data",
+      eyebrow: t.home.dataEyebrow,
+      title: t.home.dataTitle,
+      stats: [["229k", t.home.stats.cdcRows], ["3,143", t.home.stats.counties], ["2-node", t.home.stats.spark], ["20%", t.home.stats.diligence]],
+      items: t.home.dataItems,
+      href: "/data" as const,
+    },
   } as const;
-  const [mode, setMode] = useState<keyof typeof translatedFocus>("software"); const current = translatedFocus[mode];
-  return <main>
-    <section className="grid-paper relative min-h-[650px] overflow-hidden border-b border-[#d1c9bb] py-20 md:min-h-[calc(100vh-80px)] md:py-28">
-      <div className="container relative flex h-full flex-col justify-center"><div className="max-w-4xl">
-        <p className="mono rise text-[#347b64]">{t.home.kicker}</p>
-        <h1 className="display rise mt-6 text-7xl leading-[.86] md:text-[10rem]">{t.home.titleLineOne} <em className="text-[#d85436]">{t.home.titleLineTwo}</em><br />{t.home.titleLineThree}</h1>
-        <p className="rise mt-8 max-w-2xl text-lg leading-relaxed text-[#716c65] md:text-xl">{t.home.description}</p>
-        <div className="mt-8 flex flex-wrap gap-3"><Link to="/cs" className="inline-flex items-center gap-2 rounded-full bg-[#d85436] px-5 py-3 text-sm font-bold text-[#fff8ed] hover:bg-[#b8442c]">{t.home.explore} <ArrowRight size={16} /></Link><Link to="/contact" className="inline-flex items-center gap-2 rounded-full border border-[#201e1c] px-5 py-3 text-sm font-bold hover:border-[#d85436] hover:text-[#d85436]">{t.home.connect}</Link></div>
-      </div><div className="pointer-events-none absolute -bottom-20 -right-20 hidden h-80 w-80 rounded-full border border-[#d85436]/30 md:block"><div className="absolute inset-7 rounded-full border border-[#d85436]/30"><div className="absolute inset-1/3 rounded-full bg-[#d85436]" /></div></div></div>
+  const current = focus[mode];
+
+  return <main className="scrapbook-page">
+    <section className="scrapboard">
+      <div className="hero-scene">
+        <article className="paper-panel hero-paper">
+          <div className="paper-tape" />
+          <div className="paper-meta"><span>FILE 00 / INTRO</span><span>UPDATED 2026</span></div>
+          <p className="hero-kicker">{t.home.kicker}</p>
+          <h1>{t.home.titleLineOne}<br /><em>{t.home.titleLineTwo}</em><br />{t.home.titleLineThree}</h1>
+          <p className="hero-copy">{t.home.description}</p>
+          <div className="hero-actions"><Link to="/cs" className="lime-button">Open projects <ArrowRight size={16} /></Link><Link to="/contact" className="ink-link">Say hello <ArrowUpRight size={15} /></Link></div>
+          <div className="paper-footer"><span>ATL / LATAM</span><span>CS + DATA</span><span>NO TEMPLATE</span></div>
+        </article>
+        <aside className="desktop-card music-card">
+          <div className="window-bar"><span className="window-dots"><i /><i /><i /></span><span>currently-into.txt</span><span>···</span></div>
+          <button className={`record-button ${isPlaying ? "is-playing" : ""}`} onClick={() => setIsPlaying(!isPlaying)} aria-label={isPlaying ? "Pause current track" : "Play current track"}><Disc3 size={96} strokeWidth={1.2} /></button>
+          <p className="tiny-label">CURRENTLY INTO</p>
+          <h2>Clear interfaces,<br />messy questions.</h2>
+          <div className="player-line"><span>{isPlaying ? "playing / 00:18" : "press play / 00:00"}</span><span className="equalizer"><b /><b /><b /><b /></span></div>
+        </aside>
+        <button className="sticker" onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}>Side quests?<br /><strong>Always.</strong><MousePointer2 size={15} /></button>
+        <div className="desktop-note"><span>note to self</span><p>Make useful things.<br />Keep the strange details.</p></div>
+      </div>
     </section>
-    <section className="container py-20"><div className="flex flex-wrap items-center justify-between gap-5"><div><p className="mono text-[#d85436]">{t.home.chooseFocus}</p><h2 className="display mt-2 text-5xl">{t.home.buildHeading}</h2></div><div className="flex rounded-full border border-[#d1c9bb] p-1">{(Object.keys(translatedFocus) as Array<keyof typeof translatedFocus>).map((key) => <button key={key} onClick={() => setMode(key)} className={`rounded-full px-5 py-2 text-sm font-bold transition ${mode === key ? "bg-[#d85436] text-[#fff8ed]" : "text-[#716c65] hover:text-[#d85436]"}`}>{translatedFocus[key].label}</button>)}</div></div>
-      <div className="mt-10 grid gap-6 md:grid-cols-3"><div className="card rounded-2xl p-8 md:col-span-2"><p className="mono text-[#347b64]">{current.eyebrow}</p><h3 className="display mt-4 text-4xl text-[#d85436]">{current.title}</h3><div className="mt-8 grid grid-cols-2 gap-6 md:grid-cols-4">{current.stats.map(([value, label]) => <div key={label}><p className="display text-3xl">{value}</p><p className="mono mt-1 text-[.6rem] text-[#716c65]">{label}</p></div>)}</div><ul className="mt-10 grid gap-4 md:grid-cols-2">{current.items.map((item) => <li key={item} className="border-l-2 border-[#d85436] pl-4 text-[#716c65]">{item}</li>)}</ul><Link to={current.href} className="mono mt-8 inline-flex items-center gap-2 text-[#d85436]">{t.home.seeAll} <ArrowRight size={14} /></Link></div><div className="rounded-2xl bg-[#201e1c] p-8 text-[#f8f6f0]"><Sparkles className="text-[#e99b50]" /><p className="mono mt-8 text-[#e99b50]">{t.home.careLabel}</p><h3 className="display mt-3 text-4xl">{t.home.careTitle}</h3><p className="mt-5 leading-relaxed text-[#d1c9bb]">{t.home.careBody}</p></div></div>
+
+    <section id="projects" className="project-console">
+      <div className="console-top"><div><span className="tiny-label">PORTFOLIO / INDEX</span><h2>Selected projects</h2></div><span className="console-count">{mode === "software" ? "04" : "04"} files visible</span></div>
+      <div className="project-tabs" role="tablist" aria-label="Project categories">{(Object.keys(focus) as Array<keyof typeof focus>).map((key) => <button key={key} role="tab" aria-selected={mode === key} className={mode === key ? "active" : ""} onClick={() => setMode(key)}>{focus[key].label}</button>)}</div>
+      <div className="console-paper" key={mode}>
+        <div className="project-feature"><span className="tiny-label">{current.eyebrow}</span><h3>{current.title}</h3><div className="project-stats">{current.stats.map(([value, label]) => <div key={label}><strong>{value}</strong><span>{label}</span></div>)}</div><Link to={current.href} className="ink-link">Browse {mode} work <ArrowUpRight size={15} /></Link></div>
+        <div className="project-list">{current.items.map((item, index) => <Link key={item} to={current.href} className="project-row"><span>0{index + 1}</span><strong>{item}</strong><ArrowUpRight size={16} /></Link>)}</div>
+      </div>
     </section>
-    <section className="border-t border-[#d1c9bb] py-16"><div className="container flex flex-wrap items-center justify-between gap-8"><div><p className="display text-4xl">{t.home.openLabel}</p><p className="mt-2 text-[#716c65]">{t.home.openBody}</p></div><div className="flex gap-4 text-[#716c65]"><a href="mailto:emiliaabravo19@gmail.com" aria-label="Email" className="hover:text-[#d85436]"><Mail /></a><a href="https://www.linkedin.com/in/emibra" aria-label="LinkedIn" className="hover:text-[#d85436]"><Linkedin /></a><a href="https://github.com/emiibra" aria-label="GitHub" className="hover:text-[#d85436]"><Github /></a><Database className="text-[#347b64]" /></div></div></section>
+
+    <section className="scrap-lower">
+      <div className="skills-sheet paper-panel"><span className="tiny-label">TOOLS I USE</span><h2>Software, data,<br /><em>and the in-between.</em></h2><div className="skill-list"><span>Python</span><span>TypeScript</span><span>React</span><span>Next.js</span><span>SQL</span><span>PySpark</span><span>Supabase</span><span>scikit-learn</span></div></div>
+      <div className="about-note"><span className="tiny-label">A LITTLE CONTEXT</span><p>I am a Computer Science student at Georgia State University, building practical software and data systems for health, public infrastructure, and teams across Latin America.</p><Link to="/about" className="ink-link">More about me <ArrowUpRight size={15} /></Link></div>
+      <div className="pink-card"><Sparkles size={20} /><span className="tiny-label">OPEN TAB</span><h2>There is probably another idea in here somewhere.</h2></div>
+    </section>
+
+    <footer className="scrap-footer"><span>© 2026 Emilia Bravo</span><span>made with curiosity / not a template</span><div><a href="mailto:emiliaabravo19@gmail.com" aria-label="Email"><Mail size={17} /></a><a href="https://www.linkedin.com/in/emibra" aria-label="LinkedIn"><Linkedin size={17} /></a><a href="https://github.com/emiibra" aria-label="GitHub"><Github size={17} /></a><Database size={17} /></div></footer>
   </main>;
 }
