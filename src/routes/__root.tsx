@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Outlet, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
-import { Nav } from "@/components/site";
+import { Nav, SiteFooter } from "@/components/site";
 import { I18nProvider } from "@/i18n";
 import appCss from "../styles.css?url";
 
@@ -18,4 +18,4 @@ export const Route = createRootRoute({
   component: RootComponent,
 });
 function RootShell({ children }: { children: React.ReactNode }) { return <html lang="en"><head><HeadContent /></head><body>{children}<Scripts /></body></html>; }
-function RootComponent() { return <QueryClientProvider client={queryClient}><I18nProvider><Nav /><Outlet /></I18nProvider></QueryClientProvider>; }
+function RootComponent() { return <QueryClientProvider client={queryClient}><I18nProvider><Nav /><Outlet /><SiteFooter /></I18nProvider></QueryClientProvider>; }
