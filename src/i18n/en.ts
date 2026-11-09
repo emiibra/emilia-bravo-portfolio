@@ -103,7 +103,7 @@ export const en = {
     },
     recognition: {
       herecho: { label: "1st place · HackHers 2025", detail: "TechHER track award for excellence in technical innovation and social impact." },
-      "ctf-suite": { label: "3rd place · Hack The Box CTF", detail: "Certificate of appreciation from the Georgia State University Truist Hack The Box Capture the Flag challenge." },
+      "ctf-suite": { label: "2nd place (tie) · Truist Hack The Box CTF", detail: "Georgia State University Truist Hack The Box Capture the Flag challenge. The certificate shown predates the tie ruling; a corrected 2nd-place certificate is being issued." },
     },
   },
   data: {

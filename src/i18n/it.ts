@@ -105,7 +105,7 @@ export const it: Translation = {
     },
     recognition: {
       herecho: { label: "1º posto · HackHers 2025", detail: "Premio della categoria TechHER per l'eccellenza nell'innovazione tecnica e nell'impatto sociale." },
-      "ctf-suite": { label: "3º posto · Hack The Box CTF", detail: "Attestato di partecipazione alla sfida Capture the Flag Truist Hack The Box della Georgia State University." },
+      "ctf-suite": { label: "2º posto (ex aequo) · Truist Hack The Box CTF", detail: "Sfida Capture the Flag Truist Hack The Box della Georgia State University. Il certificato mostrato precede la decisione sul pari merito; è in arrivo un certificato corretto per il 2º posto." },
     },
   },
   data: {
