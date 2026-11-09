@@ -1,15 +1,32 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { GithubRepoGrid, Page, ProjectGrid, meta, type Project } from "@/components/site";
-import ctfCertificate from "./Screenshot 2026-10-16 at 4.04.05 PM.png";
-import hackHersCertificate from "./Screenshot 2026-10-16 at 4.04.18 PM.png";
+import { useTranslation } from "@/i18n";
+import type { Translation } from "@/i18n/en";
+import ctfCertificate from "@/assets/ctf-certificate.png";
+import hackHersCertificate from "@/assets/hackhers-certificate.png";
+
 export const Route = createFileRoute("/cs")({ head: () => meta("Projects | Emilia Bravo", "Full-stack platforms, hackathon winners, and systems projects by Emilia Bravo."), component: Cs });
-const projects: Project[] = [
-  { id: "fry-goehring", href: "https://event-organizer-fg.vercel.app", hrefLabel: "Live app", linkNote: "Guest demo coming soon", repo: "https://github.com/emiibra/event-organizer-fg", name: "Fry Goehring Event Logistics Manager", stage: "2025-26", status: "Production", desc: "Full-stack event operations platform used across 70+ events and about 2,100 registrations. Includes AI flyer extraction, QR check-ins, payment workflows, and exports.", stack: ["Next.js", "Supabase", "Vertex AI", "TypeScript"] },
-  { id: "teresita", name: "Teresita HR & Operations Platform", stage: "2025-26", status: "Production", desc: "Workforce management application with granular RBAC, shift scheduling, real-time attendance, and strict PostgreSQL Row-Level Security.", stack: ["React", "Next.js", "PostgreSQL", "Python"] },
-  { id: "pouncepath", name: "PouncePath CS Advising Engine", stage: "2026", status: "In Progress", desc: "Grounded RAG advising assistant and schedule solver for Computer Science students, with guardrails that keep answers tied to retrieved source material.", stack: ["FastAPI", "PostgreSQL", "pgvector", "RAG"] },
-  { id: "herecho", href: "https://her-echo.vercel.app", repo: "https://github.com/emiibra/HerEcho", name: "Voice-Only AI Assistant", stage: "Oct 2025", status: "1st Place · HackHers", desc: "A spoken-only messaging experience for low-literacy users, designed to compose, navigate, and send messages entirely through voice.", stack: ["React", "Web Speech API", "TypeScript"], recognition: { label: "1st place · HackHers 2025", detail: "TechHER track award for excellence in technical innovation and social impact.", image: hackHersCertificate, href: "https://her-echo.vercel.app" } },
-  { id: "appointment-monitor", name: "Appointment Availability Monitor", stage: "Oct 2022", status: "Shipped", desc: "Browser-scraping monitor that checked official scheduling portals in Peru and sent WhatsApp alerts, helping users move appointments months earlier.", stack: ["Python", "Puppeteer", "Cron", "WhatsApp API"] },
-  { id: "vr-golf", name: "VR Golf Training Tool", stage: "Mar 2025", status: "Meta Quest 3", desc: "Immersive golf swing analysis tool built for live demonstrations at a Georgia Tech hackathon.", stack: ["React", "Vite", "Unity XR"] },
-  { id: "ctf-suite", name: "Cybersecurity CTF Suite", stage: "Oct 2025", status: "2nd Place · Truist", desc: "Collaborative offensive and defensive security challenge suite. Solved 5 of 8 challenges for 3,325 points.", stack: ["Python", "SQL", "XSS", "Network Scanning"], recognition: { label: "3rd place · Hack The Box CTF", detail: "Certificate of appreciation from the Georgia State University Truist Hack The Box Capture the Flag challenge.", image: ctfCertificate, href: "https://ctf.hackthebox.com/team/overview/292505" } },
+
+type ProjectId = keyof Translation["projects"]["items"];
+type RecognitionId = keyof Translation["projects"]["recognition"];
+
+// Language-independent data only. Names, dates, statuses and descriptions live in src/i18n/*.ts under projects.items.
+const projects: Array<Omit<Project, "name" | "stage" | "status" | "desc" | "recognition"> & { id: ProjectId; recognition?: { id: RecognitionId; image?: string; href?: string } }> = [
+  { id: "fry-goehring", stack: ["Next.js", "Supabase", "Vertex AI", "TypeScript"], href: "https://event-organizer-fg.vercel.app", hrefKind: "app", demoPending: true, repo: "https://github.com/emiibra/event-organizer-fg" },
+  { id: "teresita", stack: ["React", "Next.js", "PostgreSQL", "Python"] },
+  { id: "pouncepath", stack: ["FastAPI", "PostgreSQL", "pgvector", "RAG"] },
+  { id: "herecho", stack: ["React", "Web Speech API", "TypeScript"], href: "https://her-echo.vercel.app", repo: "https://github.com/emiibra/HerEcho", recognition: { id: "herecho", image: hackHersCertificate, href: "https://her-echo.vercel.app" } },
+  { id: "appointment-monitor", stack: ["Python", "Puppeteer", "Cron", "WhatsApp API"] },
+  { id: "vr-golf", stack: ["React", "Vite", "Unity XR"] },
+  { id: "ctf-suite", stack: ["Python", "SQL", "XSS", "Network Scanning"], recognition: { id: "ctf-suite", image: ctfCertificate, href: "https://ctf.hackthebox.com/team/overview/292505" } },
 ];
-function Cs() { return <Page number="02" title="Projects" intro="Full-stack platforms, grounded AI systems, and hackathon builds, with live demos and code where available."><ProjectGrid items={projects} /><GithubRepoGrid /></Page>; }
+
+function Cs() {
+  const { t } = useTranslation();
+  const items: Project[] = projects.map(({ recognition, ...project }) => ({
+    ...project,
+    ...t.projects.items[project.id],
+    recognition: recognition && { ...t.projects.recognition[recognition.id], image: recognition.image, href: recognition.href },
+  }));
+  return <Page number="02" title={t.projects.title} intro={t.projects.intro}><ProjectGrid items={items} /><GithubRepoGrid /></Page>;
+}
